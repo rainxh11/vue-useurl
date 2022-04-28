@@ -1,6 +1,6 @@
 {
   "name": "vue-useurl",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Vue.js Composition API Hook Url Builder",
   "main": "src/index.js",
   "types": "src/index.ts",
