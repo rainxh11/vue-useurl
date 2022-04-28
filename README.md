@@ -1,4 +1,4 @@
-# vue-useurl ( Typescript )
+# vue-useurl ( A Url Builder Vue Hook )
 [![NPM version](https://img.shields.io/npm/v/vue-useurl.svg)](https://www.npmjs.com/package/vue-useurl)
 
 A library for building URL using ***(Query Parameters, Path Variables, Hash)*,** while being reactive and ready to use as Vue Composition API Hook
@@ -101,7 +101,7 @@ buildUrl('http://example.com', {
 
 This library is compatible with VueUse `useFetch()`, and `url` returned from `useUrl()` can easily be used to trigger auto-reftech if option `{ refetch: true }` is passed to `useFetch()` which make for intuitive and easy way to work with url parametes and variables without the need to modify url string directly
 ```ts
-import { useDebounce } from "@vueuse/core"
+import { useFetch } from "@vueuse/core"
 import { useUrl } from 'vue-useurl'
 
   const { url, queryParams, pathVariables, hash, path, disableCSV } = useUrl({ 
@@ -110,7 +110,11 @@ import { useUrl } from 'vue-useurl'
           id: 451
       },
       queryParams: {
-          ...params
+        search: 'ahmed',
+        limit: 50,
+        page: 12,
+        sort: 'CreatedOn',
+        types: ['Cancelled', 'OnGoing']
       },
       hash: 'hashtag',
       disableCSV: false
