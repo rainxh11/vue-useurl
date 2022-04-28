@@ -1,8 +1,9 @@
 {
   "name": "vue-useurl",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Vue.js Composition API Hook Url Builder",
-  "main": "src/index.ts",
+  "main": "src/index.js",
+  "types": "src/index.ts",
   "scripts": {
     "test": "npx ts-node ./test/test.ts"
   },
@@ -34,7 +35,7 @@
     "@typescript-eslint/eslint-plugin": "^5.21.0",
     "@typescript-eslint/parser": "^5.21.0",
     "@vue/composition-api": "^1.6.0",
-    "typescript": "^4.6.3",
+    "typescript": "^4.6.4",
     "vuetify": "^2.6.4"
   }
 }
