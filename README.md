@@ -65,36 +65,20 @@ The second is 'baseUrl' that will be appended to Url path
 ```ts
 buildUrl('http://example.com', {
   path: 'about',
-  hash: 'contact',
+  hash: 'hash',
   queryParams: {
     foo: 'bar',
     bar: 'baz'
   }
 });
 
-// returns http://example.com/about?foo=bar&bar=baz#contact
+// returns http://api.com/about?foo=bar&bar=baz#contact
 ```
 
 Variables returned by `useUrl()` are all reactive objects, changing any of: `path` `queryParams` `pathVariables` `hash` `disableCSV` will rebuild `url`
 
 ```ts
 const { url, queryParams, pathVariables, hash, path, disableCSV } = useUrl(/*..*/)
-```
-
-If you want to change the `path`, `hash` and `queryParams` case to all lowercase then pass `lowerCase` as true in arguments, default value of this will be `false`:
-
-```ts
-buildUrl('http://example.com', {
-  path: 'AbouT',
-  hash: 'ConTacT',
-  lowerCase: true,
-  queryParams: {
-    foo: 'bAr',
-    bar: ['oNe', 'TWO', 'thrEE', 123]
-  }
-});
-
-// returns http://example.com/about?foo=bar&bar=one,two,three,123#contact
 ```
 
 ## Usage with VueUse 'useFetch()'
