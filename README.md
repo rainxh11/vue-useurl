@@ -13,7 +13,7 @@ npm install vue-useurl --save
 
 ## Usage
 
-```
+```ts
 import { useUrl } from 'vue-useurl'
 
 const params = {
@@ -41,7 +41,7 @@ const { url, queryParams, pathVariables, hash, path, disableCSV } = useUrl({
 ## Options
 
 The `userUrl` function accepts two arguments. The first is 'options' of type IUrlOptions e.g:
-```
+```ts
 
 {
 	path: '/path/path1', // URL Path
@@ -62,7 +62,7 @@ The `userUrl` function accepts two arguments. The first is 'options' of type IUr
 
 The second is 'baseUrl' that will be appended to Url path
 
-```
+```ts
 buildUrl('http://example.com', {
   path: 'about',
   hash: 'contact',
@@ -77,13 +77,13 @@ buildUrl('http://example.com', {
 
 Variables returned by `useUrl()` are all reactive objects, changing any of: `path` `queryParams` `pathVariables` `hash` `disableCSV` will rebuild `url`
 
-```
+```ts
 const { url, queryParams, pathVariables, hash, path, disableCSV } = useUrl(/*..*/)
 ```
 
 If you want to change the `path`, `hash` and `queryParams` case to all lowercase then pass `lowerCase` as true in arguments, default value of this will be `false`:
 
-```
+```ts
 buildUrl('http://example.com', {
   path: 'AbouT',
   hash: 'ConTacT',
@@ -100,7 +100,7 @@ buildUrl('http://example.com', {
 ## Usage with VueUse 'useFetch()'
 
 This library is compatible with VueUse `useFetch()`, and `url` returned from `useUrl()` can easily be used to trigger auto-reftech if option `{ refetch: true }` is passed to `useFetch()` which make for intuitive and easy way to work with url parametes and variables without the need to modify url string directly
-```
+```ts
 import { useDebounce } from "@vueuse/core"
 import { useUrl } from 'vue-useurl'
 
