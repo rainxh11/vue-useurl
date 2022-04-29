@@ -1,6 +1,6 @@
 <img src="https://raw.githubusercontent.com/rainxh11/vue-useurl/master/assets/logo.svg" width="300">
 
-# vue-useurl ( Url Builder Vue Hook )
+# vue-useurl ( Reactive Url Builder Vue Hook for Vue 2 & Vue 3 )
 [![NPM version](https://img.shields.io/npm/v/vue-useurl.svg)](https://www.npmjs.com/package/vue-useurl)
 
 A library for building URL using ***(Query Parameters, Path Variables, Hash)*,** while being reactive and ready to use as Vue Composition API Hook
