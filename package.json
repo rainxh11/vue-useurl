@@ -1,6 +1,6 @@
 {
   "name": "vue-useurl",
-  "version": "1.0.15",
+  "version": "1.0.17",
   "description": "Url Builder Hook for Vue.js Composition API",
   "main": "src/index.js",
   "types": "src/index.ts",
@@ -27,6 +27,15 @@
   "homepage": "https://github.com/rainxh11/vue-useurl#readme",
   "dependencies": {
     "vue-demi": "latest"
+  },
+  "peerDependencies": {
+    "@vue/composition-api": "^1.0.0-rc.1",
+    "vue": "^2.0.0 || >=3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.21.0",

@@ -19,23 +19,23 @@ npm install vue-useurl --save
 import { useUrl } from 'vue-useurl'
 
 const params = {
-    search: 'ahmed',
-    limit: 50,
-    page: 12,
-    sort: 'CreatedOn',
-    types: ['Cancelled', 'OnGoing']
+  search: 'ahmed',
+  limit: 50,
+  page: 12,
+  sort: 'CreatedOn',
+  types: ['Cancelled', 'OnGoing']
 }
 
 const { url, queryParams, pathVariables, hash, path, disableCSV } = useUrl({ 
-    path: '/api/v1/users/:id/search',
-    pathVariables: {
-        id: 451
-    },
-    queryParams: {
-        ...params
-    },
-    hash: 'someHash',
-    disableCSV: false
+  path: '/api/v1/users/:id/search',
+  pathVariables: {
+    id: 451
+  },
+  queryParams: {
+    ...params
+  },
+  hash: 'someHash',
+  disableCSV: false
 }, 
 'http://api.com')
 ```
@@ -47,25 +47,25 @@ The `userUrl` function accepts two arguments. The first is 'options' of type IUr
 
 {
 	path: '/path/path1', // URL Path
-    pathVariables: { 
-        id: 451
-    }, // Path variables e.g: /:id/
-    queryParams: {
-        limit:10,
-		sortBy: 'property',
-		page: 1
-    }, // Query parameters
-    hash: 'someHash', // Hash
-    disableCSV: false 
-		// Enabled: param=1&param=2&param=3
-		// Disabled: param=1,2,3
+  pathVariables: { 
+    id: 451
+  }, // Path variables e.g: /:id/
+  queryParams: {
+    limit:10,
+	  sortBy: 'property',
+	  page: 1
+  }, // Query parameters
+  hash: 'someHash', // Hash
+  disableCSV: false 
+	// Enabled: param=1&param=2&param=3
+	// Disabled: param=1,2,3
 }
 ```
 
 The second is 'baseUrl' that will be appended to Url path
 
 ```ts
-buildUrl('http://example.com', {
+buildUrl('http://api.com', {
   path: 'about',
   hash: 'hash',
   queryParams: {
@@ -91,28 +91,27 @@ import { useFetch } from "@vueuse/core"
 import { useUrl } from 'vue-useurl'
 
   const { url, queryParams, pathVariables, hash, path, disableCSV } = useUrl({ 
-      path: '/api/v1/users/:id/search',
-      pathVariables: {
-          id: 451
-      },
-      queryParams: {
-        search: 'ahmed',
-        limit: 50,
-        page: 12,
-        sort: 'CreatedOn',
-        types: ['Cancelled', 'OnGoing']
-      },
-      hash: 'hashtag',
-      disableCSV: false
+    path: '/api/v1/users/:id/search',
+    pathVariables: {
+      id: 451
+    },
+    queryParams: {
+      search: 'ahmed',
+      limit: 50,
+      page: 12,
+      sort: 'CreatedOn',
+      types: ['Cancelled', 'OnGoing']
+    },
+    hash: 'hashtag',
+    disableCSV: false
   }, 
   'http://api.com')
 
-  const { isFetching, error, data } = useFetch<Contact[]>(
+  const { isFetching, error, data } = useFetch(
     url,
-    { initialData: { results: [] }, refetch: true}
-  )
-    .get()
-    .json()
+    { initialData: { results: [] }, refetch: true})
+  .get()
+  .json()
 ```
 
 ## How to use debouncing, throttling and other reactive backpressures with useUrl():
@@ -127,29 +126,27 @@ export useApi() {
   const filters = ref([ 'filter1', 'filter2', 'filter3' ]) // declare reactive varibales 
 
   const { url, queryParams, pathVariables, hash, path, disableCSV } = useUrl({ 
-      path: '/api/v1/users/:id/search',
-      pathVariables: {
-          id: 451
-      },
-      queryParams: {
-        search: useDebounce(search, 500), // 
-        limit: 50,
-        page: 12,
-        sort: 'CreatedOn',
-        types: useDebounce(filters, 3500) // then pass their reactive backpressure objects instead
-      },
-      hash: 'hashtag',
-      disableCSV: false
+    path: '/api/v1/users/:id/search',
+    pathVariables: {
+      id: 451
+    },
+    queryParams: {
+      search: useDebounce(search, 500), // 
+      limit: 50,
+      page: 12,
+      sort: 'CreatedOn',
+      types: useDebounce(filters, 3500) // then pass their reactive backpressure objects instead
+    },
+    hash: 'hashtag',
+    disableCSV: false
   }, 
   'http://api.com')
 
-  const { isFetching, error, data } = useFetch<Contact[]>(
+  const { isFetching, error, data } = useFetch(
     url,
-    { initialData: { results: [] }, refetch: true}
-    )
-      .get()
-      .json()
-    }
+    { initialData: { results: [] }, refetch: true})
+  .get()
+  .json()
 
   return {
     data,
@@ -164,7 +161,6 @@ export useApi() {
 }
 
 ```
-
 
 ## License
 

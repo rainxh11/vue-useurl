@@ -1,4 +1,6 @@
-import { ref, reactive, computed, Ref, UnwrapRef, ComputedRef } from 'vue-demi';
+import { ref, reactive, computed, Ref, UnwrapRef, ComputedRef, install } from 'vue-demi';
+
+install()
 
 export type IQueryParams = Record<
   string,
@@ -7,7 +9,7 @@ export type IQueryParams = Record<
 
 export type IPathVariables = Record<string, string | number | Ref<any>>
 
-interface IUrlOptions {
+export interface IUrlOptions {
     path?: string | number;
     queryParams?: IQueryParams;
     disableCSV?: boolean;
@@ -15,7 +17,7 @@ interface IUrlOptions {
     pathVariables?: IPathVariables;
 }
 
-interface IBuilderResult {
+export interface IBuilderResult {
     path: Ref<string>;
     hash: Ref<string | number>;
     queryParams: UnwrapRef<IQueryParams>;
@@ -25,7 +27,7 @@ interface IBuilderResult {
     setUrl: (url:ComputedRef<string>) => void
 }
 
-class BuilderResult implements IBuilderResult {
+export class BuilderResult implements IBuilderResult {
     constructor(path:string|number, pathVariables:IPathVariables, queryParams:IQueryParams, hash:string|number, disableCSV:boolean) {
         this.path =  ref(path.toString())
         this.hash = ref(hash.toString())
@@ -90,7 +92,7 @@ export class UrlBuilder {
     }
 } 
 
-const useUrl = (options:IUrlOptions|any, baseUrl?:string):IBuilderResult => {
+export const useUrl = (options:IUrlOptions|any, baseUrl?:string):IBuilderResult => {
     const builderResult = new BuilderResult(
         options.path, 
         options.pathVariables, 
@@ -114,5 +116,3 @@ const useUrl = (options:IUrlOptions|any, baseUrl?:string):IBuilderResult => {
     builderResult.setUrl(computedUrl)
     return builderResult
 }
-
-export { useUrl }

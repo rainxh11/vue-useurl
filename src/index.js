@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useUrl = exports.UrlBuilder = void 0;
+exports.useUrl = exports.UrlBuilder = exports.BuilderResult = void 0;
 const vue_demi_1 = require("vue-demi");
+(0, vue_demi_1.install)();
 class BuilderResult {
     constructor(path, pathVariables, queryParams, hash, disableCSV) {
         this.path = (0, vue_demi_1.ref)(path.toString());
@@ -16,6 +17,7 @@ class BuilderResult {
     }
     ;
 }
+exports.BuilderResult = BuilderResult;
 class UrlBuilder {
     constructor(baseUrl) {
         this.baseUrl = baseUrl ?? '';
