@@ -65,7 +65,8 @@ const useUrl = (options, baseUrl) => {
     const { queryParams, pathVariables, path, hash, disableCSV } = builderResult;
     const builder = new UrlBuilder(baseUrl);
     const computedUrl = (0, vue_demi_1.computed)(() => {
-        let tempUrl = (builder.baseUrl + path.value).replace('//', '/');
+        let tempUrl = `${builder.baseUrl}${path.value}`;
+        tempUrl = tempUrl.replace(/([^:]\/)\/+/g, '$1');
         tempUrl = builder.buildPathVariables(tempUrl, pathVariables);
         tempUrl = builder.buildQueryParams(tempUrl, queryParams, disableCSV.value);
         tempUrl = builder.buildHash(tempUrl, hash.value);

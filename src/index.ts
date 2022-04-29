@@ -103,7 +103,8 @@ const useUrl = (options:IUrlOptions|any, baseUrl?:string):IBuilderResult => {
     const builder = new UrlBuilder(baseUrl)
     
     const computedUrl = computed(() => {
-        let tempUrl  = (builder.baseUrl  + path.value).replace('//','/')
+        let tempUrl = `${builder.baseUrl}${path.value}`
+        tempUrl  = tempUrl.replace(/([^:]\/)\/+/g,'$1')
         tempUrl = builder.buildPathVariables(tempUrl, pathVariables)
         tempUrl = builder.buildQueryParams(tempUrl, queryParams, disableCSV.value)
         tempUrl = builder.buildHash(tempUrl, hash.value)
