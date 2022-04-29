@@ -1,3 +1,5 @@
+<img src="https://raw.githubusercontent.com/rainxh11/vue-useurl/master/assets/logo.svg" width="300">
+
 # vue-useurl ( Url Builder Vue Hook )
 [![NPM version](https://img.shields.io/npm/v/vue-useurl.svg)](https://www.npmjs.com/package/vue-useurl)
 
