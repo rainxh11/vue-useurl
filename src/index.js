@@ -1,19 +1,22 @@
-import { ref, reactive, computed } from 'vue-demi';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.useUrl = exports.UrlBuilder = void 0;
+const vue_demi_1 = require("vue-demi");
 class BuilderResult {
     constructor(path, pathVariables, queryParams, hash, disableCSV) {
-        this.path = ref(path.toString());
-        this.hash = ref(hash.toString());
-        this.queryParams = reactive(queryParams);
-        this.pathVariables = reactive(pathVariables);
-        this.disableCSV = ref(disableCSV);
-        this.url = computed(() => '');
+        this.path = (0, vue_demi_1.ref)(path.toString());
+        this.hash = (0, vue_demi_1.ref)(hash.toString());
+        this.queryParams = (0, vue_demi_1.reactive)(queryParams);
+        this.pathVariables = (0, vue_demi_1.reactive)(pathVariables);
+        this.disableCSV = (0, vue_demi_1.ref)(disableCSV);
+        this.url = (0, vue_demi_1.computed)(() => '');
     }
     setUrl(url) {
         this.url = url;
     }
     ;
 }
-export class UrlBuilder {
+class UrlBuilder {
     constructor(baseUrl) {
         this.baseUrl = baseUrl ?? '';
     }
@@ -56,11 +59,12 @@ export class UrlBuilder {
         return [];
     }
 }
+exports.UrlBuilder = UrlBuilder;
 const useUrl = (options, baseUrl) => {
     const builderResult = new BuilderResult(options.path, options.pathVariables, options.queryParams, options.hash, options.disableCSV);
     const { queryParams, pathVariables, path, hash, disableCSV } = builderResult;
     const builder = new UrlBuilder(baseUrl);
-    const computedUrl = computed(() => {
+    const computedUrl = (0, vue_demi_1.computed)(() => {
         let tempUrl = (builder.baseUrl + path.value).replace('//', '/');
         tempUrl = builder.buildPathVariables(tempUrl, pathVariables);
         tempUrl = builder.buildQueryParams(tempUrl, queryParams, disableCSV.value);
@@ -70,4 +74,4 @@ const useUrl = (options, baseUrl) => {
     builderResult.setUrl(computedUrl);
     return builderResult;
 };
-export { useUrl };
+exports.useUrl = useUrl;

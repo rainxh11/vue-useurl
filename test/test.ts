@@ -1,25 +1,20 @@
 import { useUrl } from '../src/index'
 
-const params = {
-    search: 'ahmed',
-    limit: 50,
-    page: 12,
-    sort: 'CreatedOn',
-    types: ['Cancelled', 'OnGoing']
-}
-
 const { url, queryParams, pathVariables, hash, path, disableCSV } = useUrl({ 
-    path: '/api/v1/users/:id/search',
+    path: '/api/v1/entity/:id/subentity',
     pathVariables: {
-        id: 451
+      id: 1001
     },
     queryParams: {
-        ...params
+      search: 'query',
+      sort: 'propery',
+      limit: 100,
+      page: 1,
+      filters: [ 'filter1', 'filter2', 'filter3' ]
     },
-    hash: 'hashtag',
-    disableCSV: false
+    hash: 'someHash'
 }, 
-'http://api.com')
+'https://somedomain.com')
 
 console.log(url.value)
 
