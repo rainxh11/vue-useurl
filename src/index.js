@@ -35,11 +35,11 @@ class UrlBuilder {
         url = url.replace(/(\?|\&)([^=]+)\=([^&]+)/ig, '');
         const params = Object.keys(queryParams)
             .map((key, index) => {
+            const param = Object.values(queryParams)[index];
             switch (typeof key) {
                 default:
-                    return `${key}=${Object.values(queryParams)[index]}`;
+                    return `${key}=${param}`;
                 case 'object':
-                    const param = Object.values(queryParams)[index];
                     return this.buildCSV(key, param, disableCSV);
             }
         })

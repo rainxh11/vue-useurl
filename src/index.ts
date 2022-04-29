@@ -3,10 +3,10 @@ import { Ref, UnwrapRef, ComputedRef } from "@vue/composition-api"
 
 export type IQueryParams = Record<
   string,
-  null | undefined | string | number | string[] | (string | number)[]
+  null | undefined | string | number | string[] | (string | number)[] | Ref<any> | UnwrapRef<any>
 >;
 
-export type IPathVariables = Record<string, string | number>
+export type IPathVariables = Record<string, string | number | Ref<any>>
 
 interface IUrlOptions {
     path?: string | number;
@@ -28,7 +28,7 @@ interface IBuilderResult {
 
 class BuilderResult implements IBuilderResult {
     constructor(path:string|number, pathVariables:IPathVariables, queryParams:IQueryParams, hash:string|number, disableCSV:boolean) {
-        this.path = ref(path.toString())
+        this.path =  ref(path.toString())
         this.hash = ref(hash.toString())
         this.queryParams = reactive(queryParams)
         this.pathVariables = reactive(pathVariables)
@@ -62,15 +62,15 @@ export class UrlBuilder {
         }
         return url
     }
-    public buildQueryParams(url:string, queryParams:IQueryParams, disableCSV:boolean = false): string {
+    public buildQueryParams(url:string, queryParams:IQueryParams, disableCSV = false): string {
         url =  url.replace(/(\?|\&)([^=]+)\=([^&]+)/ig, '')
         const params = Object.keys(queryParams)
             .map((key,index) => {
+                const param = Object.values(queryParams)[index]                
                 switch(typeof key) {
                     default:
-                        return `${key}=${Object.values(queryParams)[index]}`
+                        return `${key}=${param}`
                     case 'object':
-                        const param = Object.values(queryParams)[index]                
                         return this.buildCSV(key, param, disableCSV)
                 }
             })

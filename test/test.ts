@@ -1,5 +1,6 @@
 import { useUrl } from '../src/index'
-
+import { useDebounce } from '@vueuse/core'
+ 
 const { url, queryParams, pathVariables, hash, path, disableCSV } = useUrl({ 
     path: '/api/v1/entity/:id/subentity',
     pathVariables: {
@@ -16,9 +17,13 @@ const { url, queryParams, pathVariables, hash, path, disableCSV } = useUrl({
 }, 
 'https://somedomain.com')
 
+queryParams.size = useDebounce<number>(queryParams.size, 500)
+
+
 console.log(url.value)
 
 hash.value = "newHashTag"
+queryParams.size = 2
 
 console.log(url.value)
 
