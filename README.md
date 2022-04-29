@@ -115,6 +115,57 @@ import { useUrl } from 'vue-useurl'
     .json()
 ```
 
+## How to use debouncing, throttling and other reactive backpressures with useUrl():
+
+```ts
+import { useFetch, useDebounce } from "@vueuse/core"
+import { useUrl } from 'vue-useurl'
+import { ref } from 'vue-demi'
+
+export useApi() {
+  const search = ref('query') //
+  const filters = ref([ 'filter1', 'filter2', 'filter3' ]) // declare reactive varibales 
+
+  const { url, queryParams, pathVariables, hash, path, disableCSV } = useUrl({ 
+      path: '/api/v1/users/:id/search',
+      pathVariables: {
+          id: 451
+      },
+      queryParams: {
+        search: useDebounce(search, 500), // 
+        limit: 50,
+        page: 12,
+        sort: 'CreatedOn',
+        types: useDebounce(filters, 3500) // then pass their reactive backpressure objects instead
+      },
+      hash: 'hashtag',
+      disableCSV: false
+  }, 
+  'http://api.com')
+
+  const { isFetching, error, data } = useFetch<Contact[]>(
+    url,
+    { initialData: { results: [] }, refetch: true}
+    )
+      .get()
+      .json()
+    }
+
+  return {
+    data,
+    search, //
+    filters,// changing this now will trigger the url re-build
+    queryParams,
+    pathVariables,
+    hash,
+    path, 
+    url
+  }
+}
+
+```
+
+
 ## License
 
 This is licensed under an MIT License. (LICENSE)
