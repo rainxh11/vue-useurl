@@ -1,5 +1,4 @@
-import { ref, reactive, computed } from 'vue-demi';
-import { Ref, UnwrapRef, ComputedRef } from "@vue/composition-api"
+import { ref, reactive, computed, Ref, UnwrapRef, ComputedRef } from 'vue-demi';
 
 export type IQueryParams = Record<
   string,
