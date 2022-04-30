@@ -132,12 +132,11 @@ const useUrl = (options:IUrlOptions|any, baseUrl?:string):IBuilderResult => {
 
 /**
  * Create a new instance of useUrl()
- * @param {string} baseUrl Base URL
  * @returns {function} Instance function 
  */
 
-const createUseUrlInstance = (baseUrl:string = '') => {
-    return useUrl(baseUrl)
+const createUseUrlInstance = () => {
+    return useUrl
 }
 
 export { useUrl, createUseUrlInstance }

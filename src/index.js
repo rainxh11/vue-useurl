@@ -93,10 +93,9 @@ const useUrl = (options, baseUrl) => {
 exports.useUrl = useUrl;
 /**
  * Create a new instance of useUrl()
- * @param {string} baseUrl Base URL
  * @returns {function} Instance function
  */
-const createUseUrlInstance = (baseUrl = '') => {
-    return useUrl(baseUrl);
+const createUseUrlInstance = () => {
+    return useUrl;
 };
 exports.createUseUrlInstance = createUseUrlInstance;

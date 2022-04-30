@@ -5,7 +5,8 @@ const index_1 = require("../src/index");
 const vue_demi_1 = require("vue-demi");
 const search = (0, vue_demi_1.ref)('query');
 const filters = (0, vue_demi_1.ref)(['filter1', 'filter2', 'filter3']);
-const { url, queryParams, pathVariables, hash, path, disableCSV } = (0, index_1.useUrl)({
+const urlBuilder = (0, index_1.createUseUrlInstance)();
+const { url, queryParams, pathVariables, hash, path, disableCSV } = urlBuilder({
     path: '/api/v1/entity/:id/subentity',
     pathVariables: {
         id: 1001

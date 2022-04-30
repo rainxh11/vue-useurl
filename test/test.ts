@@ -1,11 +1,13 @@
 import { useDebounce } from '@vueuse/core';
-import { useUrl } from '../src/index'
+import { useUrl, createUseUrlInstance } from '../src/index'
 import { ref, reactive } from 'vue-demi'
  
 const search = ref('query')
 const filters = ref([ 'filter1', 'filter2', 'filter3' ])
 
-const { url, queryParams, pathVariables, hash, path, disableCSV } = useUrl({ 
+const urlBuilder = createUseUrlInstance()
+
+const { url, queryParams, pathVariables, hash, path, disableCSV } = urlBuilder({ 
     path: '/api/v1/entity/:id/subentity',
     pathVariables: {
       id: 1001
