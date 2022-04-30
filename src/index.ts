@@ -92,7 +92,20 @@ export class UrlBuilder {
     }
 } 
 
-export const useUrl = (options:IUrlOptions|any, baseUrl?:string):IBuilderResult => {
+/**
+ * Create a reactive url
+ * @param {IUrlOptions | any} options Builder Options
+ * @param {string} baseUrl Base URL
+ * @returns {IBuilderResult} `{ 
+ * url, 
+ * queryParams, 
+ * pathVariables, 
+ * hash, 
+ * path, 
+ * disableCSV 
+ * }`
+ */
+const useUrl = (options:IUrlOptions|any, baseUrl?:string):IBuilderResult => {
     const builderResult = new BuilderResult(
         options.path, 
         options.pathVariables, 
@@ -116,3 +129,15 @@ export const useUrl = (options:IUrlOptions|any, baseUrl?:string):IBuilderResult 
     builderResult.setUrl(computedUrl)
     return builderResult
 }
+
+/**
+ * Create a new instance of useUrl()
+ * @param {string} baseUrl Base URL
+ * @returns {function} Instance function 
+ */
+
+const createUseUrlInstance = (baseUrl:string = '') => {
+    return useUrl(baseUrl)
+}
+
+export { useUrl, createUseUrlInstance }

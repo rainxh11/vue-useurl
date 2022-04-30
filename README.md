@@ -3,7 +3,7 @@
 # vue-useurl ( Reactive Url Builder Vue Hook for Vue 2 & Vue 3 )
 [![NPM version](https://img.shields.io/npm/v/vue-useurl.svg)](https://www.npmjs.com/package/vue-useurl)
 
-A library for building URL using ***(Query Parameters, Path Variables, Hash)*,** while being reactive and ready to use as Vue Composition API Hook
+A library for building URL using ***(Query Parameters, Path Variables, Hash, Path)*** while being reactive and ready to use as Vue Composition API Hook
 
 ## Installation
 
@@ -52,8 +52,8 @@ The `userUrl` function accepts two arguments. The first is 'options' of type IUr
   }, // Path variables e.g: /:id/
   queryParams: {
     limit:10,
-	  sortBy: 'property',
-	  page: 1
+    sortBy: 'property',
+    page: 1
   }, // Query parameters
   hash: 'someHash', // Hash
   disableCSV: false 
@@ -164,4 +164,4 @@ export useApi() {
 
 ## License
 
-This is licensed under an MIT License. (LICENSE)
+This is licensed under an MIT License.

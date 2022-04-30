@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.useUrl = exports.UrlBuilder = exports.BuilderResult = void 0;
+exports.createUseUrlInstance = exports.useUrl = exports.UrlBuilder = exports.BuilderResult = void 0;
 const vue_demi_1 = require("vue-demi");
 (0, vue_demi_1.install)();
 class BuilderResult {
@@ -62,6 +62,19 @@ class UrlBuilder {
     }
 }
 exports.UrlBuilder = UrlBuilder;
+/**
+ * Create a reactive url
+ * @param {IUrlOptions | any} options Builder Options
+ * @param {string} baseUrl Base URL
+ * @returns {IBuilderResult} `{
+ * url,
+ * queryParams,
+ * pathVariables,
+ * hash,
+ * path,
+ * disableCSV
+ * }`
+ */
 const useUrl = (options, baseUrl) => {
     const builderResult = new BuilderResult(options.path, options.pathVariables, options.queryParams, options.hash, options.disableCSV);
     const { queryParams, pathVariables, path, hash, disableCSV } = builderResult;
@@ -78,3 +91,12 @@ const useUrl = (options, baseUrl) => {
     return builderResult;
 };
 exports.useUrl = useUrl;
+/**
+ * Create a new instance of useUrl()
+ * @param {string} baseUrl Base URL
+ * @returns {function} Instance function
+ */
+const createUseUrlInstance = (baseUrl = '') => {
+    return useUrl(baseUrl);
+};
+exports.createUseUrlInstance = createUseUrlInstance;
