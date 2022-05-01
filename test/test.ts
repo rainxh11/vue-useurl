@@ -15,7 +15,7 @@ const urlBuilder = createUseUrlInstance()
 const { url, queryParams, pathVariables, hash, path, disableCSV } = urlBuilder({ 
     path: '/api/v1/entity/:id/subentity',
     pathVariables: {
-      id: 1001
+      id: 1
     },
     queryParams: params,
     hash: 'someHash'
@@ -26,7 +26,7 @@ console.log(url.value)
 
 set(params, 's', ref('extra'))
 setInterval(() => {
-  hash.value = "some"
+  pathVariables.id++
   console.log(url.value)
 }, 1000)
 

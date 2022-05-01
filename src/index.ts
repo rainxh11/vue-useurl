@@ -67,9 +67,10 @@ export class UrlBuilder {
     return `${url}#${hash}`;
   }
   public buildPathVariables(url: string, pathVariables: IPathVariables): string {
-    for (const key in Object.keys(pathVariables)) {
-      url = url.replace(/:([^\/]+)/gi, key);
-    }
+    Object.keys(pathVariables).forEach((_, index) => {
+      const value = Object.values(pathVariables)[index]
+      url = url.replace(/:([^\/]+)/gi, isReactive(value) ? (value as Ref).value : value.toString() );
+    })
     return url;
   }
   public buildQueryParams(url: string, queryParams: IQueryParams, disableCSV = false): string {
