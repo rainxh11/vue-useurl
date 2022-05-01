@@ -130,3 +130,6 @@ dist
 .pnp.*
 
 *.psd
+
+# lib folder
+/lib
