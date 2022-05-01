@@ -1,6 +1,6 @@
 {
   "name": "vue-useurl",
-  "version": "1.0.28",
+  "version": "1.0.29",
   "description": "Reactive Url Builder Hook for Vue.js Composition API",
   "type":"module",
   "exports":"./lib/index.js",
