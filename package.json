@@ -1,9 +1,9 @@
 {
   "name": "vue-useurl",
-  "version": "1.0.23",
+  "version": "1.0.24",
   "description": "Reactive Url Builder Hook for Vue.js Composition API",
-  "main": "src/index.js",
-  "types": "src/index.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "test_code": "npx ts-node ./test/test.ts",
     "test": "jest --config jestconfig.json",
