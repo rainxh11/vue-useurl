@@ -1,6 +1,9 @@
-import { ref, reactive, computed, Ref, UnwrapRef, ComputedRef, install } from 'vue-demi';
+import { ref, reactive, computed, Ref, UnwrapRef, ComputedRef, install, isReactive } from 'vue-demi';
 
 install();
+
+export type MaybeRef<T> = T | Ref<T>;
+export type MaybeReactive<T> = T | UnwrapRef<T>;
 
 export type IQueryParams = Record<
   string,
@@ -10,11 +13,11 @@ export type IQueryParams = Record<
 export type IPathVariables = Record<string, string | number | Ref<any>>;
 
 export interface IUrlOptions {
-  path?: string | number;
-  queryParams?: IQueryParams;
-  disableCSV?: boolean;
-  hash?: string | number;
-  pathVariables?: IPathVariables;
+  path?: MaybeRef<string | number>;
+  pathVariables?: MaybeReactive<IPathVariables>;
+  queryParams?: MaybeReactive<IQueryParams>;
+  disableCSV?: MaybeRef<boolean>;
+  hash?: MaybeRef<string | number>;
 }
 
 export interface IBuilderResult {
@@ -29,17 +32,17 @@ export interface IBuilderResult {
 
 export class BuilderResult implements IBuilderResult {
   constructor(
-    path: string | number,
-    pathVariables: IPathVariables,
-    queryParams: IQueryParams,
-    hash: string | number,
-    disableCSV: boolean,
+    path: MaybeRef<string | number>,
+    pathVariables: MaybeReactive<IPathVariables>,
+    queryParams: MaybeReactive<IQueryParams>,
+    hash: MaybeRef<string | number>,
+    disableCSV: MaybeRef<boolean>,
   ) {
-    this.path = ref(path.toString());
-    this.hash = ref(hash.toString());
-    this.queryParams = reactive(queryParams);
-    this.pathVariables = reactive(pathVariables);
-    this.disableCSV = ref(disableCSV);
+    this.path = isReactive(path) ? (path as Ref) : ref(path.toString());
+    this.hash = isReactive(hash) ? (hash as Ref) : ref(hash.toString());
+    this.queryParams = isReactive(queryParams) ? queryParams : reactive(queryParams);
+    this.pathVariables = isReactive(pathVariables) ? pathVariables : reactive(pathVariables);
+    this.disableCSV = isReactive(disableCSV) ? (disableCSV as Ref) : ref(disableCSV);
     this.url = computed(() => '');
   }
   setUrl(url: ComputedRef<string>): void {
