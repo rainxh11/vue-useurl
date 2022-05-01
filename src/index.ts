@@ -67,7 +67,7 @@ export class UrlBuilder {
     return `${url}#${hash}`;
   }
   public buildPathVariables(url: string, pathVariables: IPathVariables): string {
-    for (const key of Object.keys(pathVariables)) {
+    for (const key in Object.keys(pathVariables)) {
       url = url.replace(/:([^\/]+)/gi, key);
     }
     return url;
