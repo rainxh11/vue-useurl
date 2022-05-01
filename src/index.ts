@@ -1,6 +1,4 @@
-import { ref, reactive, computed, Ref, UnwrapRef, ComputedRef, install, isReactive } from 'vue-demi';
-
-install();
+import { ref, reactive, computed, Ref, UnwrapRef, ComputedRef, isReactive } from 'vue-demi';
 
 export type MaybeRef<T> = T | Ref<T>;
 export type MaybeReactive<T> = T | UnwrapRef<T>;
