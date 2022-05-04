@@ -1,6 +1,6 @@
 {
   "name": "vue-useurl",
-  "version": "1.0.30",
+  "version": "1.0.32",
   "description": "Reactive Url Builder Vue Composable",
   "type":"module",
   "exports":"./lib/index.js",
@@ -16,6 +16,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rainxh11/vue-useurl.git"
+  },
+  "publishConfig": {
+    "@rainxh11:registry":"https://npm.pkg.github.com"
   },
   "files": [
     "lib/**/*"

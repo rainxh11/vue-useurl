@@ -66,14 +66,16 @@ The `userUrl` function accepts two arguments. The first is 'options' of type IUr
 The second is 'baseUrl' that will be appended to Url path
 
 ```ts
-buildUrl('http://api.com', {
-  path: 'about',
-  hash: 'hash',
-  queryParams: {
-    foo: 'bar',
-    bar: 'baz'
-  }
-});
+useUrl({ 
+    path: '/about',
+    queryParams: {
+      foo:'bar',
+      fizz: 'baz'
+    },
+    hash: 'contact',
+    disableCSV: false
+  }, 
+  'http://api.com')
 
 // returns http://api.com/about?foo=bar&bar=baz#contact
 ```
