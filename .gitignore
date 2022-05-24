@@ -132,4 +132,4 @@ dist
 *.psd
 
 # lib folder
-/lib
+#/lib
