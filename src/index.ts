@@ -114,11 +114,11 @@ export class UrlBuilder {
  */
 const useUrl = (options: IUrlOptions | any, baseUrl?: string): IBuilderResult => {
   const builderResult = new BuilderResult(
-    options.path,
-    options.pathVariables,
-    options.queryParams,
-    options.hash,
-    options.disableCSV,
+    options?.path ?? '',
+    options?.pathVariables ?? {},
+    options?.queryParams ?? {},
+    options?.hash ?? '',
+    options?.disableCSV ?? false,
   );
 
   const { queryParams, pathVariables, path, hash, disableCSV } = builderResult;
