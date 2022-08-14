@@ -7,27 +7,27 @@ export interface IUrlOptions {
     path?: MaybeRef<string | number>;
     pathVariables?: MaybeReactive<IPathVariables>;
     queryParams?: MaybeReactive<IQueryParams>;
-    disableCSV?: MaybeRef<boolean>;
     hash?: MaybeRef<string | number>;
+    disableCSV?: MaybeRef<boolean>;
 }
 export interface IBuilderResult {
     path: Ref<string>;
-    hash: Ref<string | number>;
-    queryParams: UnwrapRef<IQueryParams>;
     pathVariables: UnwrapRef<IPathVariables>;
-    url: ComputedRef<string>;
+    queryParams: UnwrapRef<IQueryParams>;
+    hash: Ref<string | number>;
     disableCSV: Ref<boolean>;
+    url: ComputedRef<string>;
     setUrl: (url: ComputedRef<string>) => void;
 }
 export declare class BuilderResult implements IBuilderResult {
-    constructor(path: MaybeRef<string | number>, pathVariables: MaybeReactive<IPathVariables>, queryParams: MaybeReactive<IQueryParams>, hash: MaybeRef<string | number>, disableCSV: MaybeRef<boolean>);
+    constructor(path: MaybeRef<string>, pathVariables: MaybeReactive<IPathVariables>, queryParams: MaybeReactive<IQueryParams>, hash: MaybeRef<string>, disableCSV: MaybeRef<boolean>);
     setUrl(url: ComputedRef<string>): void;
     path: Ref<string>;
-    hash: Ref<string | number>;
-    queryParams: UnwrapRef<IQueryParams>;
     pathVariables: UnwrapRef<IPathVariables>;
-    url: ComputedRef<string>;
+    queryParams: UnwrapRef<IQueryParams>;
+    hash: Ref<string>;
     disableCSV: Ref<boolean>;
+    url: ComputedRef<string>;
 }
 export declare class UrlBuilder {
     baseUrl: string;
@@ -50,10 +50,10 @@ export declare class UrlBuilder {
  * disableCSV
  * }`
  */
-declare const useUrl: (options: IUrlOptions | any, baseUrl?: string | undefined) => IBuilderResult;
+declare const useUrl: (options: IUrlOptions | any, baseUrl?: string) => IBuilderResult;
 /**
  * Create a new instance of useUrl()
  * @returns {function} Instance function
  */
-declare const createUseUrlInstance: () => (options: IUrlOptions | any, baseUrl?: string | undefined) => IBuilderResult;
+declare const createUseUrlInstance: () => (options: IUrlOptions | any, baseUrl?: string) => IBuilderResult;
 export { useUrl, createUseUrlInstance };

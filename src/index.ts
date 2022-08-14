@@ -14,44 +14,44 @@ export interface IUrlOptions {
   path?: MaybeRef<string | number>;
   pathVariables?: MaybeReactive<IPathVariables>;
   queryParams?: MaybeReactive<IQueryParams>;
-  disableCSV?: MaybeRef<boolean>;
   hash?: MaybeRef<string | number>;
+  disableCSV?: MaybeRef<boolean>;
 }
 
 export interface IBuilderResult {
   path: Ref<string>;
-  hash: Ref<string | number>;
-  queryParams: UnwrapRef<IQueryParams>;
   pathVariables: UnwrapRef<IPathVariables>;
-  url: ComputedRef<string>;
+  queryParams: UnwrapRef<IQueryParams>;
+  hash: Ref<string | number>;
   disableCSV: Ref<boolean>;
+  url: ComputedRef<string>;
   setUrl: (url: ComputedRef<string>) => void;
 }
 
 export class BuilderResult implements IBuilderResult {
   constructor(
-    path: MaybeRef<string | number>,
+    path: MaybeRef<string>,
     pathVariables: MaybeReactive<IPathVariables>,
     queryParams: MaybeReactive<IQueryParams>,
-    hash: MaybeRef<string | number>,
+    hash: MaybeRef<string>,
     disableCSV: MaybeRef<boolean>,
   ) {
-    this.path = isReactive(path) ? (path as Ref) : ref(path.toString());
-    this.hash = isReactive(hash) ? (hash as Ref) : ref(hash.toString());
-    this.queryParams = isReactive(queryParams) ? queryParams : reactive(queryParams);
-    this.pathVariables = isReactive(pathVariables) ? pathVariables : reactive(pathVariables);
-    this.disableCSV = isReactive(disableCSV) ? (disableCSV as Ref) : ref(disableCSV);
+    this.path = ref(path);
+    this.pathVariables = reactive(pathVariables);
+    this.queryParams = reactive(queryParams);
+    this.hash = ref(hash);
+    this.disableCSV = ref(disableCSV);
     this.url = computed(() => '');
   }
   setUrl(url: ComputedRef<string>): void {
     this.url = url;
   }
   path: Ref<string>;
-  hash: Ref<string | number>;
-  queryParams: UnwrapRef<IQueryParams>;
   pathVariables: UnwrapRef<IPathVariables>;
-  url: ComputedRef<string>;
+  queryParams: UnwrapRef<IQueryParams>;
+  hash: Ref<string>;
   disableCSV: Ref<boolean>;
+  url: ComputedRef<string>;
 }
 
 export class UrlBuilder {
@@ -114,11 +114,11 @@ export class UrlBuilder {
  */
 const useUrl = (options: IUrlOptions | any, baseUrl?: string): IBuilderResult => {
   const builderResult = new BuilderResult(
-    options.path,
-    options.pathVariables,
-    options.queryParams,
-    options.hash,
-    options.disableCSV,
+    options?.path ?? '',
+    options?.pathVariables ?? {},
+    options?.queryParams ?? {},
+    options?.hash ?? '',
+    options?.disableCSV ?? false,
   );
 
   const { queryParams, pathVariables, path, hash, disableCSV } = builderResult;
