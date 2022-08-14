@@ -1,6 +1,6 @@
 {
   "name": "vue-useurl",
-  "version": "1.0.32",
+  "version": "1.0.33",
   "description": "Reactive Url Builder Vue Composable",
   "type":"module",
   "exports":"./lib/index.js",
