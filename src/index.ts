@@ -84,7 +84,7 @@ export class UrlBuilder {
         }
       })
       .flat()
-      .filter((x) => x !== null);
+      .filter((x) => !!x);
     const paramsString = params.length > 0 ? `?${params.join('&')}` : '';
     return url + paramsString;
   }
