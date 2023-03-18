@@ -2,3 +2,6 @@ src
 tsconfig.json
 tslint.json
 .prettierrc
+.eslintrc.cjs
+.eslintignore
+jestconfig.json

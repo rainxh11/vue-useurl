@@ -1,20 +1,37 @@
 {
-    "compilerOptions": {
-        "module": "ES2020",
-        "moduleResolution": "node",
-        "target": "ES2020",
-        "jsx": "preserve",
-        "strictFunctionTypes": true,
-        "outDir": "./lib",
-        "strict": true,
-        "declaration": true,
-        "esModuleInterop": true,
-    },
-    "include": ["src"],
-    "exclude": [
-        "node_modules",
-        "test",
-        "assets",
-        "**/node_modules/*"
-    ]
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "Node",
+		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
+		"importHelpers": true,
+		"resolveJsonModule": true,
+		"sourceMap": false,
+		"declaration": true,
+		"strict": true,
+
+		"alwaysStrict": true,
+		"forceConsistentCasingInFileNames": true,
+		"removeComments": true,
+		"noImplicitAny": true,
+		"strictNullChecks": true,
+		"strictFunctionTypes": true,
+		"noImplicitThis": true,
+		"noUnusedLocals": false,
+		"noUnusedParameters": false,
+		"noImplicitReturns": true,
+		"noFallthroughCasesInSwitch": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"composite": true,
+		"skipLibCheck": true,
+		"noEmitHelpers": false,
+
+		"outDir": "dist",
+		"rootDir": "src",
+		"baseUrl": "."
+	},
+	"exclude": ["dist", "node_modules"],
+	"include": ["src"]
 }

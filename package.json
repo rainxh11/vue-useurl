@@ -1,79 +1,80 @@
 {
-  "name": "vue-useurl",
-  "version": "1.0.33",
-  "description": "Reactive Url Builder Vue Composable",
-  "type":"module",
-  "exports":"./lib/index.js",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "scripts": {
-    "test_code": "npx ts-node ./test/test.ts",
-    "test": "jest --config jestconfig.json",
-    "build": "npx tsc -b",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
-    "lint": "tslint -p tsconfig.json"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rainxh11/vue-useurl.git"
-  },
-  "publishConfig": {
-    "@rainxh11:registry":"https://npm.pkg.github.com"
-  },
-  "files": [
-    "lib/**/*"
-  ],
-  "keywords": [
-    "vue",
-    "compositionapi",
-    "hooks",
-    "url",
-    "urlbuilder",
-    "vueuse",
-    "vuehook",
-    "vue-compositionapi",
-    "vuejs",
-    "reactive-url",
-    "reactive",
-    "buildurl",
-    "urlgenerator",
-    "query",
-    "querybuilder",
-    "parameters",
-    "routing",
-    "build",
-    "route",
-    "api",
-    "path",
-    "fetch",
-    "usefetch"
-  ],
-  "author": "Ahmed Chakhoum",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/rainxh11/vue-useurl/issues"
-  },
-  "homepage": "https://github.com/rainxh11/vue-useurl#readme",
-  "dependencies": {
-    "vue-demi": "latest"
-  },
-  "peerDependencies": {
-    "@vue/composition-api": "^1.0.0-rc.1",
-    "vue": "^2.0.0 || >=3.0.0"
-  },
-  "peerDependenciesMeta": {
-    "@vue/composition-api": {
-      "optional": true
-    }
-  },
-  "devDependencies": {
-    "@types/jest": "^27.4.1",
-    "@vueuse/core": "^8.3.1",
-    "jest": "^27.5.1",
-    "prettier": "^2.6.2",
-    "ts-jest": "^27.1.4",
-    "tslint": "^6.1.3",
-    "tslint-config-prettier": "^1.18.0",
-    "typescript": "^4.6.4"
-  }
+	"name": "vue-useurl",
+	"version": "1.1.0",
+	"description": "Reactive Url Builder Vue Composable",
+	"type": "module",
+	"exports": "./dist/index.js",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"scripts": {
+		"test_code": "npx ts-node ./test/test.ts",
+		"test": "jest --config jestconfig.json",
+		"build": "npx tsc -b",
+		"format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+		"lint": "eslint -p tsconfig.json"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/rainxh11/vue-useurl.git"
+	},
+	"publishConfig": {
+		"@rainxh11:registry": "https://npm.pkg.github.com"
+	},
+	"files": ["dist/**/*"],
+	"keywords": [
+		"vue",
+		"compositionapi",
+		"hooks",
+		"url",
+		"urlbuilder",
+		"vueuse",
+		"vuehook",
+		"vue-compositionapi",
+		"vuejs",
+		"reactive-url",
+		"reactive",
+		"buildurl",
+		"urlgenerator",
+		"query",
+		"querybuilder",
+		"parameters",
+		"routing",
+		"build",
+		"route",
+		"api",
+		"path",
+		"fetch",
+		"usefetch"
+	],
+	"author": "Ahmed Chakhoum",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/rainxh11/vue-useurl/issues"
+	},
+	"homepage": "https://github.com/rainxh11/vue-useurl#readme",
+	"dependencies": {
+		"vue-demi": "^0.13.11"
+	},
+	"peerDependencies": {
+		"@vue/composition-api": "^1.0.0-rc.1",
+		"vue": "^2.0.0 || >=3.0.0"
+	},
+	"peerDependenciesMeta": {
+		"@vue/composition-api": {
+			"optional": true
+		}
+	},
+	"devDependencies": {
+		"@types/jest": "^27.4.1",
+		"@types/node": "^18.15.3",
+		"@typescript-eslint/eslint-plugin": "^5.17.0",
+		"@typescript-eslint/parser": "^5.17.0",
+		"@vueuse/core": "^8.3.1",
+		"eslint": "^8.12.0",
+		"jest": "^27.5.1",
+		"prettier": "^2.8.2",
+		"ts-jest": "^27.1.4",
+		"ts-node": "^10.7.0",
+		"typescript": "^4.6.4"
+	}
 }
