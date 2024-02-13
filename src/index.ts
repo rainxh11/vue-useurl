@@ -68,7 +68,7 @@ export class UrlBuilder {
 	public buildPathVariables(url: string, pathVariables: IPathVariables): string {
 		Object.keys(pathVariables).forEach((_, index) => {
 			const value = Object.values(pathVariables)[index]
-			url = url.replace(/:([^\/]+)/gi, isReactive(value) ? (value as Ref).value : value.toString())
+			url = url.replace(/:([^\/]+)/gi, isReactive(value) ? (value as Ref).value : value?.toString())
 		})
 		return url
 	}
@@ -78,7 +78,7 @@ export class UrlBuilder {
 			.map((key, index) => {
 				const param = Object.values(queryParams)[index]
 				if (param === null || param === undefined) return undefined
-				if (typeof param === 'object') return this.buildCSV(key, param, disableCSV)
+				if (param instanceof Array) return this.buildCSV(key, param, disableCSV)
 				return `${key}=${param}`
 			})
 			.flat()
