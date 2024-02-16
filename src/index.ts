@@ -1,4 +1,4 @@
-import { ref, reactive, computed, Ref, UnwrapRef, ComputedRef, isReactive } from "vue-demi"
+import { computed, ComputedRef, isReactive, reactive, ref, Ref, UnwrapRef } from 'vue-demi'
 
 export type MaybeRef<T> = T | Ref<T>
 export type MaybeReactive<T> = T | UnwrapRef<T>
@@ -15,7 +15,7 @@ export interface IUrlOptions {
 	pathVariables?: MaybeReactive<IPathVariables>
 	queryParams?: MaybeReactive<IQueryParams>
 	hash?: MaybeRef<string | number>
-	disableCSV?: MaybeRef<boolean>
+	arraySerializer?: (array: unknown[]) => string
 }
 
 export interface IBuilderResult {
@@ -23,48 +23,54 @@ export interface IBuilderResult {
 	pathVariables: UnwrapRef<IPathVariables>
 	queryParams: UnwrapRef<IQueryParams>
 	hash: Ref<string | number>
-	disableCSV: Ref<boolean>
+	arraySerializer: (array: unknown[]) => string
 	url: ComputedRef<string>
 	setUrl: (url: ComputedRef<string>) => void
 }
 
 export class BuilderResult implements IBuilderResult {
+	path: Ref<string>
+	pathVariables: UnwrapRef<IPathVariables>
+	queryParams: UnwrapRef<IQueryParams>
+	hash: Ref<string>
+	arraySerializer: (array: unknown[]) => string
+	url: ComputedRef<string>
+
 	constructor(
 		path: MaybeRef<string>,
 		pathVariables: MaybeReactive<IPathVariables>,
 		queryParams: MaybeReactive<IQueryParams>,
 		hash: MaybeRef<string>,
-		disableCSV: MaybeRef<boolean>,
+		arraySerializer: (array: unknown[]) => string,
 	) {
 		this.path = ref(path)
 		this.pathVariables = reactive(pathVariables)
 		this.queryParams = reactive(queryParams)
 		this.hash = ref(hash)
-		this.disableCSV = ref(disableCSV)
-		this.url = computed(() => "")
+		this.arraySerializer = arraySerializer
+		this.url = computed(() => '')
 	}
+
 	setUrl(url: ComputedRef<string>): void {
 		this.url = url
 	}
-	path: Ref<string>
-	pathVariables: UnwrapRef<IPathVariables>
-	queryParams: UnwrapRef<IQueryParams>
-	hash: Ref<string>
-	disableCSV: Ref<boolean>
-	url: ComputedRef<string>
 }
 
 export class UrlBuilder {
 	baseUrl: string
+	private defaultSerializer: (array: any[]) => string
 
 	constructor(baseUrl?: string | null | undefined) {
-		this.baseUrl = baseUrl ?? ""
+		this.baseUrl = baseUrl ?? ''
+		this.defaultSerializer = v => v.join(',')
 	}
+
 	public buildHash(url: string, hash: string | number): string {
 		hash = hash ? `#${hash}` : ''
 		if (url.match(/#.+/gi)) return url.replace(/#.+/gi, `${hash}`)
 		return `${url}${hash}`
 	}
+
 	public buildPathVariables(url: string, pathVariables: IPathVariables): string {
 		Object.keys(pathVariables).forEach((_, index) => {
 			const value = Object.values(pathVariables)[index]
@@ -72,28 +78,22 @@ export class UrlBuilder {
 		})
 		return url
 	}
-	public buildQueryParams(url: string, queryParams: IQueryParams, disableCSV = false): string {
-		url = url.replace(/(\?|\&)([^=]+)\=([^&]+)/gi, "")
-		const params = Object.keys(queryParams)
-			.map((key, index) => {
-				const param = Object.values(queryParams)[index]
-				if (param === null || param === undefined) return undefined
-				if (param instanceof Array) return this.buildCSV(key, param, disableCSV)
-				return `${key}=${param}`
+
+	public buildQueryParams(
+		url: string,
+		queryParams: IQueryParams,
+		arraySerializer?: (array: unknown[]) => string,
+	): string {
+		const serializer = arraySerializer ?? this.defaultSerializer
+		Object.entries(queryParams)
+			.filter(([, value]) => value instanceof Array)
+			.forEach(([key, value]) => {
+				queryParams[key] = serializer(value)
 			})
-			.flat()
-			.filter(x => !!x)
-		const paramsString = params.length > 0 ? `?${params.join("&")}` : ""
-		return url + paramsString
-	}
-	public buildCSV(key: string, param: any, disableCSV: boolean): string[] | any[] {
-		if (Array.isArray(param)) {
-			if (disableCSV) {
-				return param.map(p => `${key}=${p}`)
-			}
-			return [`${key}=${param.join(",")}`]
-		}
-		return []
+		const urlObject = new URL(url)
+		var searchParams = new URLSearchParams(queryParams)
+		searchParams.forEach((value, key) => urlObject.searchParams.set(key, value))
+		return urlObject.toString()
 	}
 }
 
@@ -112,24 +112,23 @@ export class UrlBuilder {
  */
 const useUrl = (options: IUrlOptions | any, baseUrl?: string): IBuilderResult => {
 	const builderResult = new BuilderResult(
-		options?.path ?? "",
+		options?.path ?? '',
 		options?.pathVariables ?? {},
 		options?.queryParams ?? {},
-		options?.hash ?? "",
-		options?.disableCSV ?? false,
+		options?.hash ?? '',
+		options?.arraySerializer,
 	)
 
-	const { queryParams, pathVariables, path, hash, disableCSV } = builderResult
+	const { queryParams, pathVariables, path, hash, arraySerializer } = builderResult
 	const builder = new UrlBuilder(baseUrl)
 
 	const computedUrl = computed(() => {
 		let tempUrl = `${builder.baseUrl}${path.value}`
-		tempUrl = tempUrl.replace(/([^:]\/)\/+/g, "$1")
+		tempUrl = tempUrl.replace(/([^:]\/)\/+/g, '$1')
 		tempUrl = builder.buildPathVariables(tempUrl, pathVariables)
-		tempUrl = builder.buildQueryParams(tempUrl, queryParams, disableCSV.value)
+		tempUrl = builder.buildQueryParams(tempUrl, queryParams, arraySerializer)
 		tempUrl = builder.buildHash(tempUrl, hash.value)
-
-		return tempUrl
+		return new URL(tempUrl).toString()
 	})
 
 	builderResult.setUrl(computedUrl)
@@ -141,8 +140,6 @@ const useUrl = (options: IUrlOptions | any, baseUrl?: string): IBuilderResult =>
  * @returns {function} Instance function
  */
 
-const createUseUrlInstance = () => {
-	return useUrl
-}
+const createUseUrlInstance = () => useUrl
 
 export { useUrl, createUseUrlInstance }

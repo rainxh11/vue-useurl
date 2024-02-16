@@ -1,6 +1,6 @@
 {
 	"name": "vue-useurl",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"description": "Reactive Url Builder Vue Composable",
 	"type": "module",
 	"exports": "./dist/index.js",
@@ -20,7 +20,9 @@
 	"publishConfig": {
 		"@rainxh11:registry": "https://npm.pkg.github.com"
 	},
-	"files": ["dist/**/*"],
+	"files": [
+		"dist/**/*"
+	],
 	"keywords": [
 		"vue",
 		"compositionapi",
@@ -53,7 +55,7 @@
 	},
 	"homepage": "https://github.com/rainxh11/vue-useurl#readme",
 	"dependencies": {
-		"vue-demi": "^0.13.11"
+		"vue-demi": "^0.14.7"
 	},
 	"peerDependencies": {
 		"@vue/composition-api": "^1.0.0-rc.1",
@@ -65,16 +67,17 @@
 		}
 	},
 	"devDependencies": {
-		"@types/jest": "^27.4.1",
-		"@types/node": "^18.15.3",
-		"@typescript-eslint/eslint-plugin": "^5.17.0",
-		"@typescript-eslint/parser": "^5.17.0",
-		"@vueuse/core": "^8.3.1",
-		"eslint": "^8.12.0",
+		"@types/jest": "^29.5.12",
+		"@types/node": "^20.11.19",
+		"@typescript-eslint/eslint-plugin": "^7.0.1",
+		"@typescript-eslint/parser": "^7.0.1",
+		"@vueuse/core": "^10.7.2",
+		"eslint": "^8.56.0",
+		"eslint-plugin-vue": "^9.21.1",
 		"jest": "^27.5.1",
-		"prettier": "^2.8.2",
-		"ts-jest": "^27.1.4",
-		"ts-node": "^10.7.0",
-		"typescript": "^4.6.4"
+		"prettier": "^3.2.5",
+		"ts-jest": "^29.1.2",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.3.3"
 	}
 }
