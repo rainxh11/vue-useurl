@@ -61,13 +61,14 @@ export class UrlBuilder {
 		this.baseUrl = baseUrl ?? ""
 	}
 	public buildHash(url: string, hash: string | number): string {
-		if (url.match(/#.+/gi)) return url.replace(/#.+/gi, `#${hash}`)
-		return `${url}#${hash}`
+		hash = hash ? `#${hash}` : ''
+		if (url.match(/#.+/gi)) return url.replace(/#.+/gi, `${hash}`)
+		return `${url}${hash}`
 	}
 	public buildPathVariables(url: string, pathVariables: IPathVariables): string {
 		Object.keys(pathVariables).forEach((_, index) => {
 			const value = Object.values(pathVariables)[index]
-			url = url.replace(/:([^\/]+)/gi, isReactive(value) ? (value as Ref).value : value.toString())
+			url = url.replace(/:([^\/]+)/gi, isReactive(value) ? (value as Ref).value : value?.toString())
 		})
 		return url
 	}
@@ -76,12 +77,9 @@ export class UrlBuilder {
 		const params = Object.keys(queryParams)
 			.map((key, index) => {
 				const param = Object.values(queryParams)[index]
-				switch (typeof key) {
-					default:
-						return `${key}=${param}`
-					case "object":
-						return this.buildCSV(key, param, disableCSV)
-				}
+				if (param === null || param === undefined) return undefined
+				if (param instanceof Array) return this.buildCSV(key, param, disableCSV)
+				return `${key}=${param}`
 			})
 			.flat()
 			.filter(x => !!x)
